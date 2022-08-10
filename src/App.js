@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MoviesList from './components/MoviesList';
 import AddedMovie from './components/AddedMovie';
 import FilterMovie from './components/FilterMovie';
@@ -67,22 +67,40 @@ function App() {
     description: 'The Ring is a 2002 American supernatural horror film',
     rate: 4,
   }])
-  const [searchInput, setSearchInput] = useState('')
+
+  const [filterInput, setFilterInput] = useState({
+    currentSearchText:'',
+    currentRating : 0
+  })
 
 
   const addMovieHandler = (movie) => {
     setFilms([movie, ...films])
-    console.log(movie)
   }
-  const handleOnSearch = (enteredSearch) => {
-    setSearchInput(enteredSearch)
+  const handleOnSearch = (value,att) => {
+    setFilterInput({
+      ...filterInput,
+      [att]:value
+    })
+    //setFilterInput({...filterInput})
   }
+
+  /* begin dirty hack for stars */
+
+  const [starKeyForce, setStarKeyForce] = useState(0)
+
+useEffect(() => {
+    setStarKeyForce(prev => prev + 1)
+}, [ filterInput.currentRating ])
+
+  /* end dirty hack for stars */
+
 
   return (
     <div className="App container">
-      <FilterMovie onSearch={handleOnSearch} />
+      <FilterMovie onChangefilter={handleOnSearch} filterInput={filterInput} starKeyForce={starKeyForce}  />
       <AddedMovie onAddMovie={addMovieHandler} />
-      <MoviesList films={films} setFilms={setFilms} searchInput={searchInput} />
+      <MoviesList films={films} setFilms={setFilms} searchInput={filterInput} />
     </div>
   );
 }

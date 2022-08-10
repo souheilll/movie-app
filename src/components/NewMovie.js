@@ -3,38 +3,34 @@ import './NewMovie.css'
 
 
 function NewMovie({ onSaveMovieData }) {
-    const [poster, setPoster] = useState('')
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [rate, setRate] = useState('')
+    const [poster, setPoster] = useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [rate, setRate] = useState('');
 
     const handleUrlChange = (e) => {
-        setPoster(e.target.value)
-        console.log(poster)
+        setPoster(e.target.value);
     }
     const handleTitleChange = (e) => {
-        setTitle(e.target.value)
-        console.log(title)
+        setTitle(e.target.value);
     }
     const handleDescriptionChange = (e) => {
-        setDescription(e.target.value)
-        console.log(description)
+        setDescription(e.target.value);
     }
     const handleRateChange = (e) => {
-        setRate(parseInt(e.target.value))
-        console.log(rate)
+        setRate(parseInt(e.target.value));
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const movieData = {
             poster, title, description, rate
-        }
-        onSaveMovieData(movieData)
-        setPoster('')
-        setTitle('')
-        setDescription('')
-        setRate('')
+        };
+        onSaveMovieData(movieData);
+        setPoster('');
+        setTitle('');
+        setDescription('');
+        setRate('');
 
     }
 
