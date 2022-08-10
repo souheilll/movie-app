@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import MoviesList from './components/MoviesList';
 import AddedMovie from './components/AddedMovie';
 import FilterMovie from './components/FilterMovie';
@@ -68,39 +68,26 @@ function App() {
     rate: 4,
   }])
 
-  const [filterInput, setFilterInput] = useState({
-    currentSearchText:'',
-    currentRating : 0
-  })
-
+  const [searchInput, setSearchInput] = useState('')
+  const [rate, setRate] = useState(0)
 
   const addMovieHandler = (movie) => {
     setFilms([movie, ...films])
   }
-  const handleOnSearch = (value,att) => {
-    setFilterInput({
-      ...filterInput,
-      [att]:value
-    })
-    //setFilterInput({...filterInput})
+
+  const handleOnSearch = (search) => {
+    setSearchInput(search)
   }
 
-  /* begin dirty hack for stars */
-
-  const [starKeyForce, setStarKeyForce] = useState(0)
-
-useEffect(() => {
-    setStarKeyForce(prev => prev + 1)
-}, [ filterInput.currentRating ])
-
-  /* end dirty hack for stars */
-
+  const handleOnRate = (rate) => {
+    setRate(rate)
+  }
 
   return (
     <div className="App container">
-      <FilterMovie onChangefilter={handleOnSearch} filterInput={filterInput} starKeyForce={starKeyForce}  />
+      <FilterMovie onSearch={handleOnSearch} onRate={handleOnRate} />
       <AddedMovie onAddMovie={addMovieHandler} />
-      <MoviesList films={films} setFilms={setFilms} searchInput={filterInput} />
+      <MoviesList films={films} setFilms={setFilms} searchInput={searchInput} filterRate={rate} />
     </div>
   );
 }

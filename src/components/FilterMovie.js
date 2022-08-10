@@ -1,30 +1,14 @@
 import React from 'react'
 import ReactStars from "react-rating-stars-component";
 
-function FilterMovie({ onChangefilter, filterInput, starKeyForce }) {
+function FilterMovie({ onSearch, onRate }) {
 
-    // const handleOnChange = (key,value) => {
-    //     onChangefilter(value,key);
-    // }
-
-    // const handleSearchMovie = (e) => {
-    //     //filterInput.currentSearchText = e.target.value;
-    //     //onChangefilter();
-    //     onChangefilter(e.target.value,'currentSearchText');
-    // }
-    // const ratingChanged = (newRating) => {
-    //     //filterInput.currentRating = newRating;
-    //     //onChangefilter();
-    //     onChangefilter(newRating,'currentRating');
-    // };
-
-    const handleOnReset = ()=>{
-        filterInput.currentSearchText = '';
-        filterInput.currentRating = 0;
-        onChangefilter();
+    const handleSearchMovie = (e) => {
+        onSearch(e.target.value)
     }
-
-
+    const ratingChanged = (newRating) => {
+        onRate(newRating)
+    };
     return (
         <div>
             <input style={{
@@ -35,9 +19,8 @@ function FilterMovie({ onChangefilter, filterInput, starKeyForce }) {
                 borderRadius: '4px',
                 border: '2px solid #ccc',
                 fontSize: 20
-            }} type='text' value={filterInput.currentSearchText} onChange={(e) => onChangefilter(e.target.value,"currentSearchText")} placeholder='Search..' />
-            <ReactStars value={filterInput.currentRating} onChange={(value) => onChangefilter(value,"currentRating")} key={starKeyForce} />
-            <button onClick={handleOnReset}>reset</button>
+            }} type='text' onChange={handleSearchMovie} placeholder='Search..' />
+            <ReactStars onChange={ratingChanged} />
         </div>
     )
 }
