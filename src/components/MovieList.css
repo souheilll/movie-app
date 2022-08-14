@@ -1,0 +1,9 @@
+.link {
+    text-decoration: none;
+    --bs-link-color: #181c22;
+    --bs-link-hover-color: #181c22;
+}
+
+.link:hover {
+    box-shadow: 5px 10px 18px #40005d9a;
+}

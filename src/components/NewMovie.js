@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './NewMovie.css'
 
 
-function NewMovie({ onSaveMovieData }) {
+function NewMovie({ onSaveMovieData, setEtat }) {
     const [poster, setPoster] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -31,6 +31,7 @@ function NewMovie({ onSaveMovieData }) {
         setTitle('');
         setDescription('');
         setRate('');
+        setEtat(false)
 
     }
 
